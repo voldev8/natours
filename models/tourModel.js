@@ -10,7 +10,8 @@ const tourSchema = new mongoose.Schema(
       unique: true,
       trim: true,
       maxlength: [40, 'A tour name must have less than 40 characters'],
-      validate: [validator.isAlpha, 'Must be only characters']
+      minlength: [5, 'A tour name must have more than 5 characters']
+      // validate: [validator.isAlpha, 'Must be only characters'] //'spaces ruins this one'
     },
     duration: {
       type: Number,
@@ -80,7 +81,7 @@ const tourSchema = new mongoose.Schema(
     toObject: { virtuals: true }
   }
 );
-
+// virtuals are not saved on database
 tourSchema.virtual('durationWeeks').get(function() {
   return this.duration / 7;
 });
