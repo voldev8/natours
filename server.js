@@ -13,30 +13,10 @@ mongoose
   .connect(db, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
   })
   .then(() => console.log('db connection successful!'));
-
-const tourSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'A tour must have a name'], // validator
-    unique: true
-  },
-  rating: Number,
-  price: {
-    type: Number,
-    required: [true, 'A tour must have a price']
-  }
-});
-
-const Tour = mongoose.model('Tour', tourSchema);
-const testTour = new Tour({
-  name: 'The Park',
-  rating: 4.2
-});
-
-testTour.save();
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
